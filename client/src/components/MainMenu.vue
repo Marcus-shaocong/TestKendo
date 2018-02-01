@@ -8,7 +8,7 @@
             <span id="nav-toggle" class="nav-toggle d-md-none" @click="navState = !navState">
                 <span class="k-icon k-i-hamburger"></span>
             </span>
-            <h1 id="app-title">新居氏</h1>
+            <h1 id="app-title">新居室</h1>
             <p id="app-subtitle">中国房屋买卖实践专家</p>
             <hr />
             <p class="h4 mt-5">Project</p>
@@ -22,6 +22,9 @@
                 <li class="nav-item" id="houses">
                     <router-link to="/houses" class="nav-link">笋盘展示</router-link>
                 </li>
+                <li class="nav-item" id="tables">
+                    <router-link to="/tables" class="nav-link">表格测试</router-link>
+                </li>                
             </ul>
             <p class="h4 mt-5">Account</p>
             <ul class="nav nav-pills flex-column">
@@ -34,7 +37,7 @@
             </ul>
             <hr class="k-flex" />
             <div id="copy">
-                <p>&copy; {{year}},新居氏网站版权所有<br /><a href="http://www.progress.com">新居氏软件开发技术团队</a> </p>
+                <p>&copy; {{year}},新居室网站版权所有<br /><a href="http://www.progress.com">新居氏软件开发技术团队</a> </p>
                 <p>侵权必究</p>
             </div>
         </div>

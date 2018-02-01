@@ -11,6 +11,11 @@ export default {
   name: 'app',
   components: {
     MainMenu
+  },
+  created() {
+    let ckeditor = document.createElement('script');    
+    ckeditor.setAttribute('src',"http://cdnjs.cloudflare.com/ajax/libs/jszip/2.4.0/jszip.js");
+    document.head.appendChild(ckeditor);
   }
 }
 </script>

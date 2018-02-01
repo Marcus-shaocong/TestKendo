@@ -1,8 +1,12 @@
 <template>
 <div>
+ 
   <div class="grid">
+    <!--
     <kendo-grid
       :dataSourceRef="'readData'"
+      :excel:="excelData"
+      :toolbar="toolbar"
       v-on:databinding="onDataBinding"
       v-on:databound="onDataBound"
       :groupable='true'
@@ -37,29 +41,60 @@
       <kendo-grid-column field="DiscountPresent"  title="评估折扣" :width="120"></kendo-grid-column>
       <kendo-grid-column field="DistFromPP" title="距离人广" :width="120"></kendo-grid-column>                  
     </kendo-grid>
+    <kendo-button id="btnExport" v-on:change="onChange">导出至 Excel</kendo-button>
   </div>
-      <!--
-      <div v-for="item in columns"> 
-      <kendo-grid-column field={{item.name}}" title={{item.value}} :width="40"></kendo-grid-column>
-      </div>
-      <div v-for="item in columns"> 
-      <kendo-grid-column field={{item.value}}" title={{item.value}} :width="10%"></kendo-grid-column>
-      </div>
+  -->
+<!--
+      <kendo-grid
+      :dataSourceRef="'readData'"
+      :excel:="excel"
+      :excelExport="excelExport"
+      :toolbar="toolbar"
+      v-on:databinding="onDataBinding"
+      v-on:databound="onDataBound"
+      :groupable='true'
+      :sortable='true'
+      :scrollable='false'
+      :pageable-refresh='true'
+      :pageable-page-sizes='true'
+      :pageable-button-count="5"
+      :data-source="localDataSource" v-once>
         <kendo-grid-column field="HouseName" title="小区" :width="40"></kendo-grid-column>
         <kendo-grid-column field="HousePrice" title='价格' :width="120"></kendo-grid-column>
         <kendo-grid-column field="Age" title="年份" :width="120" :format="'{0:c}'"></kendo-grid-column>
         <kendo-grid-column field="Area" title="面积" :width="120"></kendo-grid-column>
         <kendo-grid-column field="IsSchool"  title="是否学区" :width="120"></kendo-grid-column>
         <kendo-grid-column field="Desc" title="其它描述" :width="120"></kendo-grid-column>
-      -->
+      </kendo-grid>
 
-  
+      <kendo-button id="btnExport" @click="onChange">导出至 Excel</kendo-button>
+      -->
+      <kendo-button id="btnExport" @click="onClick"> 导出至 Excel</kendo-button>
+      <kendo-grid 
+      :data-source="houseData" 
+      :columns="newColumns"
+      :toolbar="toolbar"
+      :excel="excel"
+      :change="onChange"
+      :excelExport="ExcelExport"
+      :pdfExport="pdfExport"
+      :save="onSave"
+      :saveChanges="onSaveChanges"
+      >
+      </kendo-grid>
+  </div>
 </div>
 </template>
 
 <script>
+
 import axios from 'axios'
-import jQuery from 'jQuery'
+import kendoOoxml from '@progress/kendo-ui'
+import kendo from '@progress/kendo-ui'
+import JSZip from 'jszip'
+
+
+//var $ = window.jQuery = require('jquery');
 
 const fields = {
         GoodMetro:'优质地铁站点',
@@ -92,6 +127,21 @@ export default {
 
   data () {
     return {
+      toolbar:["excel"],
+      excel:{
+          fileName: "Test.xlsx",
+          filterable: true,
+          proxyURL: "http://localhost:8000"
+      },
+      columns:[
+        {field:"HouseName", title:"标题", width:"120px"},
+        {field:"HousePrice", title:"房源价格", width:"120px"},
+        {field:"Age", title:"房龄", width:"120px"},
+        {field:"Area", title:"面积", width:"120px"},
+        {field:"Dist", title:"区域", width:"120px"},
+        {field:"IsSchool", title:"学区", width:"120px"},
+        {field:"Desc", title:"描述", width:"120px"}
+      ],
       name: 'houses info',
       houseData:[],
       localDataSource: [
@@ -234,10 +284,13 @@ export default {
       ]
     }
   },
+
+
   methods:{
     readData(){
       console.log('reading Data');
     },
+
     onDataBinding:function(ev){
       console.log("Grid is about to be bond!");
       /*
@@ -246,12 +299,68 @@ export default {
         grid.autoFitColumn(i);
       }*/
     },
+
+    excelExport:function(e){
+      console.log("excelExport");
+      console.log(e);
+      // Prevent the default behavior which will prompt the user to save the generated file.
+      debugger
+      e.preventDefault();
+      // Get the Excel file as a data URL.
+       /*
+      let workbook = new kendo.ooxml.Workbook(e.workbook);
+      workbook.toDataURLAsync().then(function(dataURI) {
+        dataURI:dataURI,
+        fileName:"Test.xlsx"
+      });
+     
+      let dataUrl = workbook.toDataURL();
+      kendo.saveAs({dataURI:dataUrl, fileName:"Test.xlsx"})
+      
+      // Strip the data URL prologue.
+      var base64 = dataURL.split(";base64,")[1];
+      debugger
+      // Post the base64 encoded content to the server which can save it.
+      $.post("/server/save", {
+          base64: base64,
+          fileName: "ExcelExport.xlsx"
+      });      
+      $("#grid").data("kendoGrid").saveAsExcel()*/
+      
+  },
+
     onDataBound:function(ev){
       console.log("Grid is now bound!");
+    },
+
+    onClick:function(ev){
+      console.log("onClick")
+      let grid = $("#grid").data("kendoGrid");
+      debugger
+      grid.saveAsExcel();
+    },
+
+    onChange:function(ev){
+      console.log("onChange", ev);
+    },
+
+    onSave:function(ev){
+      console.log("onSave",ev);
+    },
+
+    onSaveChanges:function(ev){
+      console.log("onSavechanges",ev);
+    },
+
+    pdfExport: function(ev){
+      console.log("pdfExport", ev);
     }
   },
+
+
   created(){
-    var that = this;
+    var that = this;  
+    //Get data from server
     console.log("Enter created:", this.$route.path);
     axios.get('http://localhost:8000').then(function(res){
       console.log("res body",res.data);
@@ -268,16 +377,34 @@ export default {
       console.log("house data", data);
     });
   },
+
+
   computed:{
-    columns:function(){
-    let setCols = [];
-    for (let key in fields) {
-        setCols.push({name:key, value:fields[key]});
+    newColumns:function(){
+    //set columns
+      let propLength = Object.keys(fields).length;
+      let setCols = [];
+      for (let key in fields) {
+          setCols.push({field:key, title:fields[key], width:"120px"})
+      }
+      console.log("setCols", setCols);
+      return setCols;
     }
-    console.log("setCols", setCols);
-    return setCols;
-    }
+  },
+
+
+  mounted:function(){
+    console.log("Enter mounted");
+    /*
+      $("#btnExport").kendoButton({
+      click: function()
+        {
+          console.log("mountedonclick")
+          $("#grid").data("kendoGrid").saveAsExcel()
+        }
+      });*/
   }
+
 }
 </script>
 
