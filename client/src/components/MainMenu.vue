@@ -13,6 +13,7 @@
             <hr />
             <p class="h4 mt-5">Project</p>
             <ul class="nav nav-pills flex-column">
+            <!--
                 <li class="nav-item" id="dashbaord">
                     <router-link to="/dashboard" class="nav-link">房产信息</router-link>
                 </li>
@@ -22,9 +23,16 @@
                 <li class="nav-item" id="houses">
                     <router-link to="/houses" class="nav-link">笋盘展示</router-link>
                 </li>
-                <li class="nav-item" id="tables">
-                    <router-link to="/tables" class="nav-link">表格测试</router-link>
-                </li>                
+            -->
+                <li class="nav-item" id="houses">
+                    <router-link to="/houses" class="nav-link">笋盘展示</router-link>
+                </li>
+                <li class="nav-item" id="newpages">
+                    <router-link to="/houseInfo" class="nav-link">房产信息</router-link>
+                </li>
+                <li class="nav-item" id="services">
+                    <router-link to="/newpage" class="nav-link">特色服务</router-link>
+                </li>                     
             </ul>
             <p class="h4 mt-5">Account</p>
             <ul class="nav nav-pills flex-column">
@@ -37,7 +45,7 @@
             </ul>
             <hr class="k-flex" />
             <div id="copy">
-                <p>&copy; {{year}},新居室网站版权所有<br /><a href="http://www.progress.com">新居氏软件开发技术团队</a> </p>
+                <p>&copy; {{year}},新居室网站版权所有<br /><a href="http://www.progress.com">新居室软件开发技术团队</a> </p>
                 <p>侵权必究</p>
             </div>
         </div>

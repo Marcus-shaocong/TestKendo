@@ -17,14 +17,15 @@ app.use(cors())
 app.get('/', (req, res, next) => {
 	var workbook = new Excel.Workbook();
 
-	workbook.xlsx.readFile('./src/test.xlsx')
+	workbook.xlsx.readFile('./src/new_houses.xlsx')
 	  .then(function(worksheet) {
-		//console.log(typeof worksheet);
+		console.log(typeof worksheet);
 		  //console.log(worksheet._worksheets.length);
 		  let body = [];
 		  let firstrow = 0;
-		  let header;
-		  worksheet._worksheets[16].eachRow({includeEmpty: false}, function(row, rowNumber){
+			let header;
+			let wsheet = workbook.getWorksheet(1)
+		  wsheet.eachRow({includeEmpty: false}, function(row, rowNumber){
 			//console.log("typeof row", typeof row);
 			if(firstrow === 0){
 				header = row.values.map(item=>{
@@ -32,12 +33,24 @@ app.get('/', (req, res, next) => {
 				return item;
 			  });
 			  header = header.splice(1,header.length);            
-			  console.log("header lenght", header.length);           
+				console.log("header lenght", header.length);    
+				console.log("header", header)       
 			}
 			else{
 	
-			  let eachItem = row.values;
-			  eachItem = eachItem.splice(1,eachItem.length);  
+				let eachItem = row.values;
+				// eachItem.map(item=>{
+				// 	console.log('typeof item:', typeof item)
+				// })
+				eachItem = eachItem.splice(1,eachItem.length); 
+				eachItem = eachItem.map(item=>{
+					if(item.text){
+						return item.text
+					}else{
+						return item
+					}
+				})
+				//console.log("eachItem", eachItem) 
 			  //console.log("firstrow", firstrow);
 			  //console.log("second item", eachItem.length);
 			  body.push(eachItem);

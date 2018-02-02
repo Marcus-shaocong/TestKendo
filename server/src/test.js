@@ -26,14 +26,30 @@ var fs = require('fs');
   var Excel = require('exceljs');
   var workbook = new Excel.Workbook();
 
-workbook.xlsx.readFile('./src/test.xlsx')
+workbook.xlsx.readFile('server/src/new_houses.xlsx')
     .then(function(worksheet) {
+      let wsheet = workbook.getWorksheet(1)
+
+      wsheet.eachRow({includeEmpty: false}, function(row, rowNumber){
+        console.log(row)
+        console.log(rowNumber)
+      })
+        
+      
       console.log(typeof worksheet);
-        console.log(worksheet._worksheets.length);
+        console.log(typeof worksheet._worksheets);
+        console.log(typeof worksheet._worksheets[0]);
+        let ws = worksheet._worksheets[0]
+        for(let key in ws){
+          console.log("key is ", key)
+          console.log("value is ", worksheet[key])
+        }
+        let rows = worksheet.getRows();
+        console.log(rows)
         let body = [];
         let firstrow = 0;
         let header;
-        worksheet._worksheets[16].eachRow({includeEmpty: false}, function(row, rowNumber){
+        worksheet._worksheets[0].eachRow({includeEmpty: false}, function(row, rowNumber){
           console.log("typeof row", typeof row);
           if(firstrow === 0){
               header = row.values.map(item=>{

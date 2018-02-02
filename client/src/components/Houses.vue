@@ -69,7 +69,6 @@
 
       <kendo-button id="btnExport" @click="onChange">导出至 Excel</kendo-button>
       -->
-      <kendo-button id="btnExport" @click="onClick"> 导出至 Excel</kendo-button>
       <kendo-grid 
       :data-source="houseData" 
       :columns="newColumns"
@@ -97,30 +96,37 @@ import JSZip from 'jszip'
 //var $ = window.jQuery = require('jquery');
 
 const fields = {
-        GoodMetro:'优质地铁站点',
-        OrgMetro:'原地铁站点',
-        MetroAround:'周边地铁',
-        IsSchool:'学区房',
-        BaseAppraisal: '小区基价',
-        MarketPrice:'市场均价（元／平）',
-        MarketDiscount:'市场折扣',
-        MetorStation:'总地铁站点',
-        PricePerHouse:'房源单价和连接',
-        WholePrice:'房源总价',
-        Rooms:'房源房间',
-        HouseDesc:'房源描述(点开复制开来)',
-        HouseDirection:'房源朝向',
-        HouseFloor:'房源楼层',
-        HouseTax:'房源税费情况',
-        HouseDecor:'房源装修',
-        NewMetro:'新地铁站点',
-        District:'板块',
-        Title:'标题',
-        Plate:'环线',
-        ConstructionYear:'竣工日期',
-        Area:'行政区',
-        DiscountPresent:'评估折扣',
-        DistFromPP:'距离人广'
+        H_Title:'房源标题',
+        H_flatName:'小区名称',
+        H_Node:'行政区',
+        H_District:'板块',
+        H_Plate:'环线',
+        H_ConstructionYear:'竣工日期（年）',
+        H_PricePerHouse:'单价（元／平）',
+        H_BaseAppraisal: '小区基价',
+        H_MarketDiscount:'评估折扣',
+        H_Area:"建筑面积",
+        H_MarketPrice:'总价（万）',
+        H_HouseDirection:'房源朝向',
+        H_HouseFloor:'楼层描述',
+        H_Rooms:'房间数',
+        H_HouseDecor:'装修情况',
+        H_HouseYear:"房屋年限",
+        H_HasElevator:"是否配备电梯",
+        H_Elevator:"电梯-梯",
+        H_Floor:"电梯-户",
+        H_TypeOfConstruction: "建筑类型",
+        H_MetroAround:'周边地铁',
+        H_MetorStation:'总地铁站点',
+        H_GoodMetro:'优质地铁站点',
+        H_DistFromPP:'距离人广(km)',
+        H_selfDefDist:"距自定义(km)-漕河泾",
+        H_IsSchool:'学区房',
+        H_TradeAuth:"交易权属",
+        H_Fans:"关注人数",
+        H_WatchCount:"带看次数",
+        H_PublishTime:"发布时间",
+        H_HouseDesc:'房源描述'     
 };
 
 export default {

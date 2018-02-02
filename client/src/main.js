@@ -11,6 +11,8 @@ import Profile from './components/Profile.vue'
 import Signin from './components/Signin.vue'
 import Houses from './components/Houses.vue'
 import Tables from './components/Tables.vue'
+import Page from './components/Page.vue'
+import HouseInfo from './components/HouseInfo.vue'
 import JSZip from 'jszip'
 
 
@@ -68,12 +70,14 @@ Vue.use(KendoWindowInstaller)
 
 
 const routes = [
-  { path: '/', component: Dashboard },
+  { path: '/', component: Houses },
   { path: '/dashboard', component: Dashboard },
   { path: '/issues', component: Issues },
   { path: '/profile', component: Profile },
   { path: '/signin', component: Signin },
-  { path: '/houses', component: Houses }
+  { path: '/houses', component: Houses },
+  { path: '/newpage', component: Page },
+  { path: '/houseInfo', component: HouseInfo }
 ]
 
 const router = new Router({
