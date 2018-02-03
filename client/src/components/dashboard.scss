@@ -341,3 +341,15 @@
         #app-title { font-size: 4em; }
         #app-subtitle { font-size: 1em; }
       }
+
+      #houses{
+         .k-grid th, .k-grid td{
+          white-space: nowrap;
+        }
+      }
+
+      .house-desc{
+        width: 300px;
+        display: inline-flex;
+        white-space: normal
+      }

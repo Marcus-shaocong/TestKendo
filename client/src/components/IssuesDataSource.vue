@@ -20,7 +20,7 @@
           }
         }
       })
-
+    console.log("ghData", this.ghData)
       this.$emit('datasourcecreated', this.ghData)
     },
     model: {

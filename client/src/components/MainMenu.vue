@@ -13,17 +13,14 @@
             <hr />
             <p class="h4 mt-5">Project</p>
             <ul class="nav nav-pills flex-column">
-            <!--
+                <!--
                 <li class="nav-item" id="dashbaord">
                     <router-link to="/dashboard" class="nav-link">房产信息</router-link>
                 </li>
                 <li class="nav-item" id="issues">
                     <router-link to="/issues" class="nav-link">笋盘展示</router-link>
                 </li>
-                <li class="nav-item" id="houses">
-                    <router-link to="/houses" class="nav-link">笋盘展示</router-link>
-                </li>
-            -->
+                -->
                 <li class="nav-item" id="houses">
                     <router-link to="/houses" class="nav-link">笋盘展示</router-link>
                 </li>

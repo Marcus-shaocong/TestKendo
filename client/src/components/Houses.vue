@@ -1,7 +1,7 @@
 <template>
 <div>
  
-  <div class="grid">
+  <div class="grid" id="houses">
     <!--
     <kendo-grid
       :dataSourceRef="'readData'"
@@ -71,16 +71,125 @@
       -->
       <kendo-grid 
       :data-source="houseData" 
-      :columns="newColumns"
       :toolbar="toolbar"
       :excel="excel"
       :change="onChange"
       :excelExport="ExcelExport"
       :pdfExport="pdfExport"
       :save="onSave"
+      :scrollable='true'
       :saveChanges="onSaveChanges"
+      :pageable-refresh='true'
+      :pageable-page-sizes='true'
+      :pageable-button-count="5"
+      :detail-template="detailTemplate"
       >
-      </kendo-grid>
+      <kendo-grid-column field="H_Title" title="房源标题" :width="200"  template="<span title='#:H_Title #'>#:H_Title #</span>"/>
+      <kendo-grid-column field="H_flatName" title='小区名称' :width="200" template="<span title='#:H_flatName #'>#:H_flatName #</span>"/>
+      <kendo-grid-column field="H_Node" title="行政区" :width="100"/>
+      <kendo-grid-column field="H_District" title="板块" :width="100"/>
+      <kendo-grid-column field="H_Plate" title="环线" :width="150" template="<span title='#:H_Plate #'>#:H_Plate #</span>"/>
+      <kendo-grid-column field="H_ConstructionYear" title="竣工日期（年）" :width="150"/>
+      <kendo-grid-column field="H_PricePerHouse" title="单价（元／平）" :width="150"/>
+      <kendo-grid-column field="H_BaseAppraisal" title='小区基价' :width="100"/>
+      <kendo-grid-column field="H_MarketDiscount" title="评估折扣" :width="100"/>
+      <kendo-grid-column field="H_Area" title="建筑面积" :width="100" />
+      <kendo-grid-column field="H_MarketPrice" title="总价（万）" :width="150" />
+      <kendo-grid-column field="H_HouseDirection" title="房源朝向" :width="100"/>
+      <kendo-grid-column field="H_HouseFloor" title="楼层描述" 
+        :width="150">
+      </kendo-grid-column>
+      <kendo-grid-column 
+        field="H_Rooms" 
+        title='房间数' 
+        :width="100">
+      </kendo-grid-column>
+      <kendo-grid-column 
+        field="H_HouseDecor" 
+        title="装修情况" 
+        :width="100">
+      </kendo-grid-column>
+      <kendo-grid-column 
+        field="H_HouseYear" 
+        title="房屋年限" 
+        :width="100">
+      </kendo-grid-column>
+      <kendo-grid-column 
+        field="H_HasElevator"  
+        title="是否配备电梯" 
+        :width="150">
+      </kendo-grid-column>
+      <kendo-grid-column 
+        field="H_Elevator" 
+        title="电梯-梯" 
+        :width="100" >
+      </kendo-grid-column>
+      <kendo-grid-column 
+        field="H_Floor" 
+        title="电梯-户" 
+        :width="100" >
+      </kendo-grid-column>
+      <kendo-grid-column 
+        field="H_TypeOfConstruction" 
+        title='建筑类型' 
+        :width="100" >
+      </kendo-grid-column>
+      <kendo-grid-column 
+        field="H_MetroAround" 
+        title="周边地铁" 
+        :width="200" template="<span title='#:H_MetroAround #'>#:H_MetroAround #</span>">
+      </kendo-grid-column>
+      <kendo-grid-column 
+        field="H_MetorStation" 
+        title="总地铁站点" 
+        :width="150" >
+      </kendo-grid-column>
+      <kendo-grid-column 
+        field="H_GoodMetro"  
+        title="优质地铁站点" 
+        :width="150" >
+      </kendo-grid-column>
+      <kendo-grid-column 
+        field="H_DistFromPP" 
+        title="距离人广(km)" 
+        :width="150" >
+      </kendo-grid-column>
+      <kendo-grid-column 
+        field="H_selfDefDist" 
+        title="距自定义(km)-漕河泾" 
+        :width="200" >
+      </kendo-grid-column>
+      <kendo-grid-column 
+        field="H_IsSchool"  
+        title="学区房" 
+        :width="100" >
+      </kendo-grid-column>
+      <kendo-grid-column 
+        field="H_TradeAuth" 
+        title="交易权属" 
+        :width="100" >
+      </kendo-grid-column>
+      <kendo-grid-column 
+        field="H_Fans" 
+        title="关注人数" 
+        :width="100" >
+      </kendo-grid-column>
+      <kendo-grid-column 
+        field="H_WatchCount"  
+        title="带看次数" 
+        :width="100" >
+      </kendo-grid-column>
+      <kendo-grid-column 
+        field="H_PublishTime" 
+        title="发布时间" 
+        :width="100" template="<span title='#:H_PublishTime #'>#:H_PublishTime #</span>">
+      </kendo-grid-column>
+      <kendo-grid-column 
+        field="H_HouseDesc" 
+        title="房源描述" 
+        :width="100" template="<span title='#:H_HouseDesc #'>#:H_HouseDesc #</span>" >
+      </kendo-grid-column>               
+    </kendo-grid>
   </div>
 </div>
 </template>
@@ -101,13 +210,13 @@ const fields = {
         H_Node:'行政区',
         H_District:'板块',
         H_Plate:'环线',
-        H_ConstructionYear:'竣工日期（年）',
-        H_PricePerHouse:'单价（元／平）',
+        H_ConstructionYear:'竣工日期(年)',
+        H_PricePerHouse:'单价(元/平)',
         H_BaseAppraisal: '小区基价',
         H_MarketDiscount:'评估折扣',
         H_Area:"建筑面积",
-        H_MarketPrice:'总价（万）',
-        H_HouseDirection:'房源朝向',
+        H_MarketPrice:'总价(万)',
+        H_HouseDirection:'房屋朝向',
         H_HouseFloor:'楼层描述',
         H_Rooms:'房间数',
         H_HouseDecor:'装修情况',
@@ -119,7 +228,7 @@ const fields = {
         H_MetroAround:'周边地铁',
         H_MetorStation:'总地铁站点',
         H_GoodMetro:'优质地铁站点',
-        H_DistFromPP:'距离人广(km)',
+        H_DistFromPP:'距人广(km)',
         H_selfDefDist:"距自定义(km)-漕河泾",
         H_IsSchool:'学区房',
         H_TradeAuth:"交易权属",
@@ -128,6 +237,24 @@ const fields = {
         H_PublishTime:"发布时间",
         H_HouseDesc:'房源描述'     
 };
+
+
+  const DETAIL_TEMPLATE = `
+        <div class="row my-4">
+            <div class="col-sm-4">
+                <p>
+                    <span class="text-muted"><b>小区: </b>#: H_flatName #</span></br>
+                    <span class="text-muted"><b>板块: </b>#: H_District #</span></br>
+                    <span class="text-muted"><b>面积: </b>#: H_Area #</span></br>
+                    <span class="text-muted"><b>小区基价: </b>#: H_PricePerHouse #</span></br>
+                    <span class="text-muted"><b>总价（万）: </b>#: H_MarketPrice #</span></br>
+                    <span class="text-muted"><b>评估折扣: </b>#: H_MarketDiscount #</span></br>
+                    <span class="text-muted"><b>楼层描述: </b>#: H_HouseFloor #</span></br>
+                    <span class="text-muted"><b>周边地铁: </b>#: H_MetroAround #</span></br>
+                    <span class="text-muted"><b>带看次数: </b>#: H_WatchCount #</span></br>
+                </p>
+            </div>
+        </div>`
 
 export default {
 
@@ -382,6 +509,7 @@ export default {
       that.houseData = data;
       console.log("house data", data);
     });
+    that.detailTemplate = DETAIL_TEMPLATE;
   },
 
 
@@ -420,5 +548,5 @@ export default {
   .grid {
     padding: 10px;
   }
-  
+
 </style>
