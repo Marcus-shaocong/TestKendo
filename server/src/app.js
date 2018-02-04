@@ -44,11 +44,7 @@ app.get('/', (req, res, next) => {
 				// })
 				eachItem = eachItem.splice(1,eachItem.length); 
 				eachItem = eachItem.map(item=>{
-					if(item.text){
-						return item.text
-					}else{
 						return item
-					}
 				})
 				//console.log("eachItem", eachItem) 
 			  //console.log("firstrow", firstrow);

@@ -1,7 +1,7 @@
 <template>
-<div>
+<div id="housecomponent">
  
-  <div class="grid" id="houses">
+  <div class="grid">
     <!--
     <kendo-grid
       :dataSourceRef="'readData'"
@@ -79,13 +79,17 @@
       :save="onSave"
       :scrollable='true'
       :saveChanges="onSaveChanges"
+      :pageable-items-per-page = "10"
       :pageable-refresh='true'
       :pageable-page-sizes='true'
       :pageable-button-count="5"
       :detail-template="detailTemplate"
       >
-      <kendo-grid-column field="H_Title" title="房源标题" :width="200"  template="<span title='#:H_Title #'>#:H_Title #</span>"/>
-      <kendo-grid-column field="H_flatName" title='小区名称' :width="200" template="<span title='#:H_flatName #'>#:H_flatName #</span>"/>
+      <kendo-grid-column :selectable="true" :width="50"/>
+      <kendo-grid-column field="H_flatName" title='小区名称' :width="200" template="
+      <span><a href='#:H_flatName.hyperlink #' title='#:H_flatName.text #'>#: H_flatName.text #</a></span>"/>
+      <kendo-grid-column field="H_Title" title="房源标题" :width="200"  template="
+      <span><a href='#:H_Title.hyperlink #' title='#:H_Title.text #'>#: H_Title.text #</a></span>"/>
       <kendo-grid-column field="H_Node" title="行政区" :width="100"/>
       <kendo-grid-column field="H_District" title="板块" :width="100"/>
       <kendo-grid-column field="H_Plate" title="环线" :width="150" template="<span title='#:H_Plate #'>#:H_Plate #</span>"/>
@@ -243,7 +247,7 @@ const fields = {
         <div class="row my-4">
             <div class="col-sm-4">
                 <p>
-                    <span class="text-muted"><b>小区: </b>#: H_flatName #</span></br>
+                    <span class="text-muted"><b>小区: </b><a href='#:H_flatName.hyperlink #'>#: H_flatName.text #</a></span></br>
                     <span class="text-muted"><b>板块: </b>#: H_District #</span></br>
                     <span class="text-muted"><b>面积: </b>#: H_Area #</span></br>
                     <span class="text-muted"><b>小区基价: </b>#: H_PricePerHouse #</span></br>
@@ -433,7 +437,7 @@ export default {
       }*/
     },
 
-    excelExport:function(e){
+    ExcelExport:function(e){
       console.log("excelExport");
       console.log(e);
       // Prevent the default behavior which will prompt the user to save the generated file.
@@ -518,6 +522,7 @@ export default {
     //set columns
       let propLength = Object.keys(fields).length;
       let setCols = [];
+      setCols.push({selectable:true, width:"50px"})
       for (let key in fields) {
           setCols.push({field:key, title:fields[key], width:"120px"})
       }

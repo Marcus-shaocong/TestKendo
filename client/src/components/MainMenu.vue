@@ -8,7 +8,7 @@
             <span id="nav-toggle" class="nav-toggle d-md-none" @click="navState = !navState">
                 <span class="k-icon k-i-hamburger"></span>
             </span>
-            <h1 id="app-title">新居室</h1>
+            <h1 id="app-title">新居氏</h1>
             <p id="app-subtitle">中国房屋买卖实践专家</p>
             <hr />
             <p class="h4 mt-5">Project</p>
@@ -42,7 +42,9 @@
             </ul>
             <hr class="k-flex" />
             <div id="copy">
-                <p>&copy; {{year}},新居室网站版权所有<br /><a href="http://www.progress.com">新居室软件开发技术团队</a> </p>
+                <p>&copy; {{year}},新居氏网站版权所有<br /><a href="http://www.xinjushi.xym">新居氏软件开发技术团队</br></a> 
+                Copyright ©2017-2018 XinJushi Corporation, All Rights Reserved
+                </p>
                 <p>侵权必究</p>
             </div>
         </div>

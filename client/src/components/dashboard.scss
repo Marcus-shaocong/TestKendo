@@ -347,9 +347,25 @@
           white-space: nowrap;
         }
       }
+      #housecomponent{
+        .k-grid th, .k-grid td{
+          white-space: nowrap;
+        }
+        a:link {
+          color: blue;
+          text-decoration: none;
+          border-bottom: 1px solid blue;
+          white-space: nowrap;
+        }
+        a:hover {
+         border-bottom-color: green;
+         white-space: nowrap;
+        }
+      }
 
       .house-desc{
         width: 300px;
         display: inline-flex;
         white-space: normal
       }
+

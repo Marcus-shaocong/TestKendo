@@ -1,7 +1,7 @@
 <template>
 <div id="signin" class="signin">
   <div class="signin-form p-5">
-	<h1 id="app-title">新居室</h1>
+	<h1 id="app-title">新居氏</h1>
 	<p id="app-subtitle">中国房屋买卖实践专家</p>
 
 	<div class="form-group mt-4">
