@@ -84,6 +84,11 @@ app.get('/:id', (req,res)=>{
 			age:36})
 });
 
+app.post('/houses', function(req, res){
+	console.log("req.body", req.body)
+	res.json({name:'test',value:'test'});
+});
+
 
 //console.log(path);
 debug.info(path.join(__dirname, '../assets'));

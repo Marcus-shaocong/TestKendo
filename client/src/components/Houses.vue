@@ -1,6 +1,50 @@
 <template>
 <div id="housecomponent">
- 
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card" id="profile">
+              <h3 class="card-header">筛盘属性</h3>
+            <div class="card-block">
+              <div class="row">
+                <div class="col-md-12">
+                  
+                  <div class = "row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="h6">客户姓名</label>
+                        <input type="email" id="name" class="form-control" v-model="user.name" placeholder="例如：张三"/>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="h6">折扣率</label>
+                        <input type="text" id="discount" class="form-control" v-model="user.discount" placeholder="例如：0.98" />
+                      </div>
+                    </div>
+                  </div>
+                    <div class="form-group">
+                    <label class="h6">定制选项</label>
+                    <input type="text" id="option" class="form-control" v-model="user.option" />
+                    </div>
+                    <div class="form-group">
+                    <label class="h6">房源URL前半段</label>
+                    <input type="text" id="housePrefixUrl" class="form-control" v-model="user.prefixUrl" placeholder="例如：http://sh.lianjia.com/ershoufang/d"/>
+                    </div>
+                    <div class="form-group">
+                    <label class="h6">房源URL后半段</label>
+                    <input type="text" id="houseSuffixUrl" class="form-control" v-model="user.suffixUrl" placeholder="例如：e2ie2ie1y4l2l5l4l6p3p6/"/>
+                    </div>
+                    <div class="form-group">
+                    <button class="btn btn-primary" @click="onSelectClick">筛盘</button>
+                    </div>
+                    <label v-show="errors">{{errors}}</label>
+                </div>
+                </div>
+            </div>
+            </div>
+          </div>
+  </div>
+
   <div class="grid">
     <!--
     <kendo-grid
@@ -69,6 +113,7 @@
 
       <kendo-button id="btnExport" @click="onChange">导出至 Excel</kendo-button>
       -->
+
       <kendo-grid 
       :data-source="houseData" 
       :toolbar="toolbar"
@@ -100,99 +145,25 @@
       <kendo-grid-column field="H_Area" title="建筑面积" :width="100" />
       <kendo-grid-column field="H_MarketPrice" title="总价（万）" :width="150" />
       <kendo-grid-column field="H_HouseDirection" title="房源朝向" :width="100"/>
-      <kendo-grid-column field="H_HouseFloor" title="楼层描述" 
-        :width="150">
-      </kendo-grid-column>
-      <kendo-grid-column 
-        field="H_Rooms" 
-        title='房间数' 
-        :width="100">
-      </kendo-grid-column>
-      <kendo-grid-column 
-        field="H_HouseDecor" 
-        title="装修情况" 
-        :width="100">
-      </kendo-grid-column>
-      <kendo-grid-column 
-        field="H_HouseYear" 
-        title="房屋年限" 
-        :width="100">
-      </kendo-grid-column>
-      <kendo-grid-column 
-        field="H_HasElevator"  
-        title="是否配备电梯" 
-        :width="150">
-      </kendo-grid-column>
-      <kendo-grid-column 
-        field="H_Elevator" 
-        title="电梯-梯" 
-        :width="100" >
-      </kendo-grid-column>
-      <kendo-grid-column 
-        field="H_Floor" 
-        title="电梯-户" 
-        :width="100" >
-      </kendo-grid-column>
-      <kendo-grid-column 
-        field="H_TypeOfConstruction" 
-        title='建筑类型' 
-        :width="100" >
-      </kendo-grid-column>
-      <kendo-grid-column 
-        field="H_MetroAround" 
-        title="周边地铁" 
-        :width="200" template="<span title='#:H_MetroAround #'>#:H_MetroAround #</span>">
-      </kendo-grid-column>
-      <kendo-grid-column 
-        field="H_MetorStation" 
-        title="总地铁站点" 
-        :width="150" >
-      </kendo-grid-column>
-      <kendo-grid-column 
-        field="H_GoodMetro"  
-        title="优质地铁站点" 
-        :width="150" >
-      </kendo-grid-column>
-      <kendo-grid-column 
-        field="H_DistFromPP" 
-        title="距离人广(km)" 
-        :width="150" >
-      </kendo-grid-column>
-      <kendo-grid-column 
-        field="H_selfDefDist" 
-        title="距自定义(km)-漕河泾" 
-        :width="200" >
-      </kendo-grid-column>
-      <kendo-grid-column 
-        field="H_IsSchool"  
-        title="学区房" 
-        :width="100" >
-      </kendo-grid-column>
-      <kendo-grid-column 
-        field="H_TradeAuth" 
-        title="交易权属" 
-        :width="100" >
-      </kendo-grid-column>
-      <kendo-grid-column 
-        field="H_Fans" 
-        title="关注人数" 
-        :width="100" >
-      </kendo-grid-column>
-      <kendo-grid-column 
-        field="H_WatchCount"  
-        title="带看次数" 
-        :width="100" >
-      </kendo-grid-column>
-      <kendo-grid-column 
-        field="H_PublishTime" 
-        title="发布时间" 
-        :width="100" template="<span title='#:H_PublishTime #'>#:H_PublishTime #</span>">
-      </kendo-grid-column>
-      <kendo-grid-column 
-        field="H_HouseDesc" 
-        title="房源描述" 
-        :width="100" template="<span title='#:H_HouseDesc #'>#:H_HouseDesc #</span>" >
-      </kendo-grid-column>               
+      <kendo-grid-column field="H_HouseFloor" title="楼层描述" :width="150"/>
+      <kendo-grid-column field="H_Rooms" title='房间数':width="100"/>
+      <kendo-grid-column field="H_HouseDecor" title="装修情况" :width="100"/>
+      <kendo-grid-column field="H_HouseYear" title="房屋年限" :width="100"/>
+      <kendo-grid-column field="H_HasElevator"  title="是否配备电梯" :width="150"/>
+      <kendo-grid-column field="H_Elevator" title="电梯-梯" :width="100"/>
+      <kendo-grid-column field="H_Floor" title="电梯-户" :width="100" />
+      <kendo-grid-column field="H_TypeOfConstruction" title='建筑类型' :width="100" />
+      <kendo-grid-column field="H_MetroAround" title="周边地铁" :width="200" template="<span title='#:H_MetroAround #'>#:H_MetroAround #</span>"/>
+      <kendo-grid-column field="H_MetorStation" title="总地铁站点"  :width="150" />
+      <kendo-grid-column field="H_GoodMetro" title="优质地铁站点" :width="150" />
+      <kendo-grid-column field="H_DistFromPP" title="距离人广(km)" :width="150" />
+      <kendo-grid-column field="H_selfDefDist" title="距自定义(km)-漕河泾" :width="200" />
+      <kendo-grid-column field="H_IsSchool" title="学区房" :width="100" />
+      <kendo-grid-column field="H_TradeAuth" title="交易权属" :width="100" />
+      <kendo-grid-column field="H_Fans" title="关注人数" :width="100" />
+      <kendo-grid-column field="H_WatchCount" title="带看次数" :width="100" />
+      <kendo-grid-column field="H_PublishTime" title="发布时间":width="100" template="<span title='#:H_PublishTime #'>#:H_PublishTime #</span>"/>
+      <kendo-grid-column field="H_HouseDesc" title="房源描述" :width="100" template="<span title='#:H_HouseDesc #'>#:H_HouseDesc #</span>" />
     </kendo-grid>
   </div>
 </div>
@@ -204,6 +175,8 @@ import axios from 'axios'
 import kendoOoxml from '@progress/kendo-ui'
 import kendo from '@progress/kendo-ui'
 import JSZip from 'jszip'
+import SelectHouseForm from './SelectHouseForm.vue'
+import localData from '../configure/testData'
 
 
 //var $ = window.jQuery = require('jquery');
@@ -264,11 +237,22 @@ export default {
 
   data () {
     return {
+      errors:"",
+      user:{
+          prefixUrl:"",
+          suffixUrl:"",
+          name:"",
+          discount:0,
+          option:""
+      },
       toolbar:["excel"],
       excel:{
           fileName: "Test.xlsx",
           filterable: true,
           proxyURL: "http://localhost:8000"
+      },
+      components:{
+        'select-house-form': SelectHouseForm
       },
       columns:[
         {field:"HouseName", title:"标题", width:"120px"},
@@ -281,144 +265,7 @@ export default {
       ],
       name: 'houses info',
       houseData:[],
-      localDataSource: [
-        {
-          'HouseName': '同济新村',
-          'HousePrice': '330万',
-          'Age': '1986',
-          'Area': '84平',
-          'Dist': '杨浦',
-          'IsSchool': '学区',
-          'Desc': '两室一厅'
-        },
-        {
-          'HouseName': '杨浦新村',
-          'HousePrice': '90万',
-          'Age': '1986',
-          'Area': '84平',
-          'Dist': '杨浦',
-          'IsSchool': '学区',
-          'Desc': '两室一厅'
-        },
-        {
-          'HouseName': '杨浦新村',
-          'HousePrice': '330万',
-          'Age': '1986',
-          'Area': '84平',
-          'Dist': '杨浦',
-          'IsSchool': '学区',
-          'Desc': '两室一厅'
-        },
-        {
-          'HouseName': '杨浦新村',
-          'HousePrice': '330万',
-          'Age': '1986',
-          'Area': '84平',
-          'Dist': '杨浦',
-          'IsSchool': '学区',
-          'Desc': '两室一厅'
-        },
-        {
-          'HouseName': '杨浦新村',
-          'HousePrice': '90万',
-          'Age': '1986',
-          'Area': '84平',
-          'Dist': '杨浦',
-          'IsSchool': '学区',
-          'Desc': '两室一厅'
-        },
-        {
-          'HouseName': '杨浦新村',
-          'HousePrice': '330万',
-          'Age': '1986',
-          'Area': '84平',
-          'Dist': '杨浦',
-          'IsSchool': '学区',
-          'Desc': '两室一厅'
-        },
-        {
-          'HouseName': '同济新村',
-          'HousePrice': '330万',
-          'Age': '1986',
-          'Area': '84平',
-          'Dist': '杨浦',
-          'IsSchool': '学区',
-          'Desc': '两室一厅'
-        },
-        {
-          'HouseName': '同济新村',
-          'HousePrice': '330万',
-          'Age': '1986',
-          'Area': '84平',
-          'Dist': '杨浦',
-          'IsSchool': '学区',
-          'Desc': '两室一厅'
-        },
-        {
-          'HouseName': '同济新村',
-          'HousePrice': '90万',
-          'Age': '1986',
-          'Area': '84平',
-          'Dist': '杨浦',
-          'IsSchool': '学区',
-          'Desc': '两室一厅'
-        },
-        {
-          'HouseName': '同济新村',
-          'HousePrice': '330万',
-          'Age': '1986',
-          'Area': '84平',
-          'Dist': '杨浦',
-          'IsSchool': '学区',
-          'Desc': '两室一厅'
-        },
-        {
-          'HouseName': '同济新村',
-          'HousePrice': '330万',
-          'Age': '1986',
-          'Area': '84平',
-          'Dist': '杨浦',
-          'IsSchool': '学区',
-          'Desc': '两室一厅'
-        },
-        {
-          'HouseName': '同济新村',
-          'HousePrice': '330万',
-          'Age': '1986',
-          'Area': '84平',
-          'Dist': '杨浦',
-          'IsSchool': '学区',
-          'Desc': '两室一厅'
-        },
-        {
-          'HouseName': '同济新村',
-          'HousePrice': '330万',
-          'Age': '1986',
-          'Area': '84平',
-          'Dist': '杨浦',
-          'IsSchool': '学区',
-          'Desc': '两室一厅'
-        },
-        {
-          'HouseName': '同济新村',
-          'HousePrice': '330万',
-          'Age': '1986',
-          'Area': '84平',
-          'Dist': '杨浦',
-          'IsSchool': '学区',
-          'Desc': '两室一厅'
-        },
-        {
-          'HouseName': 'xincun',
-          'HousePrice': '330',
-          'Age': '1986',
-          'Area': '84',
-          'Dist': 'yangpu',
-          'IsSchool': 'No',
-          'Desc': 'two houses'
-        }
-
-      ]
+      localDataSource: localData
     }
   },
 
@@ -491,6 +338,35 @@ export default {
 
     pdfExport: function(ev){
       console.log("pdfExport", ev);
+    },
+    
+    isValid: function () {
+      var validData = this.validation
+      console.log("validation");
+      return Object.keys(validData).every(function (key) {
+        console.log("isVaild key", key)
+        console.log("isVaild", validData[key])
+        return validData[key]
+      })
+    },
+    onSelectClick:function(ev){
+      console.log("onSelectClick", ev)
+      console.log("this.User", this.user)
+      if(this.isValid()){
+          axios(
+            {
+              method: 'post',
+              url:'http://localhost:8000/houses',
+              data:this.user
+            }
+          ).then(function(res){
+          console.log("res body",res.data);
+          });
+      }
+      else{
+        console.log("not valid")
+        //this.errors = "something is wrong"
+      }
     }
   },
 
@@ -528,6 +404,14 @@ export default {
       }
       console.log("setCols", setCols);
       return setCols;
+    },
+    validation:function(){
+      return{
+        name: !!this.user.name.trim(),
+        discount:  this.user.discount !== 0,
+        prefixUrl: !!this.user.prefixUrl.trim(),
+        suffixUrl: !!this.user.suffixUrl.trim()
+      }
     }
   },
 
